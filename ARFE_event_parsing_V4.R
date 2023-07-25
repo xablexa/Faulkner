@@ -25,7 +25,7 @@ for (i in 1:nrow(LIA_events)) {
 } #set the end word of row[i] to the begin word of the next row
 LIA_events$end_word[nrow(LIA_events)] <- "THE END" #last row is missing, so set to 'THE END'
 ###
-LIA <- as.data.frame(read_file("Faulkner, a Rose for Emily.txt")) #load in Light in August text as dataframe
+LIA <- as.data.frame(read_file("Faulkner, a Rose for Emily.txt")) #load in A Rose for Emily text as dataframe
 colnames(LIA) <- "text"
 #clean up the text
 LIA$text <- sub(".*\n4\n","",LIA$text) #remove edition information
