@@ -1,6 +1,7 @@
 Elly code
 + extra code for identifying punctuation (capitalization not necessary)
 
+75004134+xablexa@users.noreply.github.com
 
 
 setwd("C:/Users/Axel/Desktop/Psych Stuff/Faulkner") #set wd
