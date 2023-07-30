@@ -1,4 +1,7 @@
 setwd("C:/Users/Axel/Desktop/Psych Stuff/Faulkner") #set wd
+#set up git
+library(usethis)
+
 ###load in packages
 library(tidyverse)
 library(tidytext)
@@ -163,5 +166,19 @@ for (i in 1:nrow(LIA_events)) {
 LIA_events$excerpt_punc <- ""
 for (i in 1:nrow(LIA_events)) {
   LIA_events$excerpt_punc[i] <- str_sub(LIA2$text, LIA_events$startIndex[i], LIA_events$newEndIndex[i])
+}
+for (i in 1:nrow(LIA_events)) {
+  cap_words <- data.frame(str_locate_all(LIA_events$excerpt_punc[i], '[:upper:]'))
+  cap_words <- rbind(cap_words, data.frame(str_locate_all(LIA_events$excerpt_punc[i], '[:space:](?=[:upper:])')))
+  cap_words <- cap_words[order(cap_words$start),]
+  for (j in 1:nrow(cap_words)) {
+    if (j != 1) {
+      if (cap_words$start[j] != 1) {
+        if ((cap_words$start[j] - 1) == cap_words$start[j-1]) {
+          substr(LIA_events$excerpt_punc[i], cap_words$start[j], cap_words$end[j]) <- str_to_lower(substr(LIA_events$excerpt_punc[i], cap_words$start[j], cap_words$end[j]))
+        }
+      }
+    }
+  }
 }
 write.xlsx(LIA_events, "Elly_events.xlsx")
